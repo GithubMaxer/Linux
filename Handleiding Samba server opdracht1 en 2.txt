@@ -1,0 +1,99 @@
+Handleiding Samba server  opdracht 1  
+Machine1 Linux
+1.	Open konsole
+2.	su       “daarna wachwoord van de root”
+3.	cd /home
+4.	mkdir Administratie
+5.	mkdir Verkoop
+6.	groupadd administratie
+7.	groupadd verkoop
+8.	chgrp administratie Administratie
+9.	chgrp verkoop Verkoop                    “Verkoop is een map en verkoop met klein letter is groepnaam”
+10.	chmod 070 Administratie
+11.	chmod 070 Verkoop
+12.	useradd cora
+13.	passwd cora               “geef twee keer Linux wachtwoord, bijvoorbeeld Welkom01 en Welkom01”
+14.	smbpasswd -a cora     “geef twee keer samba wachtwoord, bijvoorbeeld Welkom01 en Wekom1 
+15.	useradd jan
+16.	passwd jan                “geef twee keer Linux wachtwoord, bijvoorbeeld Welkom01 en Welkom01”
+17.	smbpasswd -a jan     “geef twee keer samba wachtwoord, bijvoorbeeld Welkom01 en Wekom01” 
+18.	usermod -aG administratie cora
+19.	usermod -aG verkoop jan
+20.	systemctl start smb.service
+21.	systemctl stop firewalld.service
+22.	vi /etc/samba/smb.conf
+voeg de volgende regels in configuratiebestand:
+[Administratie]
+                   path = /home/Administratie
+                   writeable = yes
+[Verkoop]
+                   path = /home/Verkoop
+                   writeable = yes
+
+sla dit op “ESC daarna :wq! En druk op enter”
+23.	systemctl restart smb.service
+24.	ip address   “kopier het ip-adres (ip-adres begint altijd met 172. of 192. of 10.)
+
+ 
+
+Machine2 Windows client
+1.	open Verkenner “Win+E”
+2.	rechtermuisklik op Deze pc vervolgens klik op Netwerkverbinding maken.
+3.	Voer de volgende regel in:    i.p.v user1 typ naam van de gebruiker bijvoorbeeld “cora of jan”
+\\192.168.27.135\Administratie
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4.	Nu kan je test bestanden en mappen aanmaken
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+Handleiding Samba server  opdracht 2
+Bij opdracht mogen de gebruikers van de beide groepen de data van elkaar niet zien maar nu mogen ze wel de data van elkaar allen lezen “read en excute”.  
+Machine1 Linux
+1.	Open konsole
+2.	su       “daarna wachwoord van de root”
+3.	cd /home
+4.	vi /etc/samba/smb.conf   “hier moeten nog twee regels toegevoegd worden”
+
+[Administratie]
+                   path = /home/Administratie
+                   writeable = yes
+                   valid user = @administratie,@verkoop
+[Verkoop]
+                   path = /home/Verkoop
+                   writeable = yes
+                   valid user = @verkoop,@administratie
+
+sla dit op “ESC daarna :wq! En druk op enter”
+5.	setfacl -m g:administratie:r-x Verkoop
+6.	setfacl -m g:verkoop:r-x Administratie
+7.	systemctl restart smb.service
+Nu kan opnieuw verbinding maken met de shares en dan testen of de gebruiker van Administratie les toegang heeft tot de share Verkoop.
