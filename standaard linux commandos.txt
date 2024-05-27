@@ -1,0 +1,31 @@
+Linux standaard commando's
+Linux is hoofdletter gevoelig
+
+cd ~ (ga je naar de home map)
+
+mkdir (maak je een map aan) als je een map een naam wilt geven met een spatcie ertussen zo als bijvoorbeeld ps4 games. Dan doe je: mkdir "ps4 games" of mkdir ps4\ games
+
+tree (dan zie je de mappen en wat in ze staan)
+
+touch (kan je file bestanden aan maken: touch Dell-specs HP.docx. Je maakt dan het txt bestand dell-specs en hp.docx aan)
+
+cat >> filename.txt (met deze commando kan je een bestand aan maken en ook meteen inhoud toevoegen)
+
+mv Dell Dell-v1 (met deze commando verander je de naam van de ma Dell naar Dell-v1 je kan deze commando ook gebruiken om een map te verplatsen)
+
+cp (met de cp commando kan je files kopieren en plakken in een andere directory, je moet hiervoor well de hele dircortoy path uit schrijven)
+
+echo "zet hier text" >> bestand.txt (met deze commando zet je text in een bestand met de echo commando)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+useradd -m (username) Met deze commando maak je een gebruiker aan met een homemap
+
+passwd (username) Hiermee maak je een password aan voor de gebruiker. Dus als je de gebruiker Piet hebt dan doe je: passwd Piet. (Geen zorgen als je in root zit en de passwd commando uitvoerd dan geef je nogsteeds de gebruiker piet een wachtwoord)
+
+groupadd -g (groupID) (Groupname). Met deze commando maak je een group aan en pas je ook meteen het group ID aan. Dus bijvoorbeeld: groupadd -g 500 Inkoop. Deze commando maakt de group Inkoop aan met de groepID 500
+
+usermod -g Inkoop Piet (Deze commando veranderd de primary group van Piet naar Inkoop)
+
+usermod -aG Inkoop Piet (Deze commando voegd de gebruiker Piet toe tot de Inkoop map en behoud zijn primary group)
+
